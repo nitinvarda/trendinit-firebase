@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect,useContext } from 'react';
 
 
 import Loader from '../../Loader'
@@ -11,10 +11,13 @@ import {
 import ReactMarkdown from 'react-markdown';
 import './adminhome.css';
 
+import AppContext  from '../../appContext'
+
 
 // this is functional component with react hooks
 const AdminHome = (props) => {
-    const [isAuthenticated,setIsAuthenticated] = useState(false)
+    const appState = useContext(AppContext)
+  
     const pageNumber = props.match.params.pageNumber || 1
     const articles = []
 
@@ -33,7 +36,7 @@ const AdminHome = (props) => {
 
 
 
-    }, [pageNumber])
+    }, [])
 
 
 
@@ -43,7 +46,7 @@ const AdminHome = (props) => {
 
 
     // checking user authentication
-    if (isAuthenticated) {
+    if (appState.isAuthenticated) {
         // if any post is deleted it get result as deleted 
         // then page is reloaded to see the changes
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -16,7 +16,8 @@ import Categories from './components/Homepage/categories/categories';
 import ContacUs from './components/navbar/contacUs';
 import Footer from './components/navbar/Footer';
 
-
+// context
+import AppContext from './components/appContext'
 
 //  updation
 import HomeScreen from './components/Homepage/mainpage/HomeScreen';
@@ -29,9 +30,21 @@ import OtherPages from './components/Homepage/mainpage/OtherPages';
 
 function App() {
   // we are checking for authentication as soon this component is rendered
- 
 
+  const [user,setUser] = useState({})
+  const [isAuthenticated,setIsAuthenticated] = useState(false)
+
+  const updateUser = (data)=>{
+    setUser(data)
+    
+  }
+  const updateIsAuthenticated = (value)=>{
+    setIsAuthenticated(value)
+  }
+
+  console.log(isAuthenticated)
   return (
+    <AppContext.Provider value={{user,updateUser,isAuthenticated,updateIsAuthenticated}}>
     <Router>
       <Navbar />
       <div className="main">
@@ -58,6 +71,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </AppContext.Provider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 
 import { Redirect } from "react-router-dom";
 import '../editPost/edit.css';
@@ -7,13 +7,15 @@ import marked from 'marked';
 
 import { Form, Col, Container, Button } from 'react-bootstrap'
 import { Alert } from 'react-bootstrap'
+import AppContext from '../../../appContext'
+import firebase from '../../../../trendinitServices/index'
 
 
 
 // this is functional component with react hooks
 
 const Add = () => {
-    const [isAuthenticated,setIsAuthenticated] = useState(false)
+    const appState = useContext(AppContext)
     const [postStatus,setPostStatus] =useState('')
     const [post, setPost] = useState({
         title: " ",
@@ -21,19 +23,34 @@ const Add = () => {
         desc: "",
         category: "",
         imagename: "",
-        myImage: ""
+        articleImage: ""
     })
 
 
 
-    const { title, by, desc, category, myImage } = post;
+    const { title, by, desc, category, articleImage } = post;
     const marked_desc = marked(desc);
 
 
 
     // this is submit funciton for adding post
-    const Submit = (e) => {
+    const addPost = async(e) => {
         e.preventDefault();
+        try{
+            const addPost = await firebase.articles.create({
+                title,
+                by,
+                desc:marked_desc,
+                category,
+                articleImage
+            })
+            console.log(addPost)
+        }
+        catch(err){
+            console.log(err)
+
+        }
+
         
 
     }
@@ -46,7 +63,7 @@ const Add = () => {
     // this handles the image files in the form
     const fileHandler = (e) => {
         setPost({
-            ...post, myImage: e.target.files[0]
+            ...post, articleImage: e.target.files[0]
         })
     }
 
@@ -54,7 +71,7 @@ const Add = () => {
 
 
 
-    if (isAuthenticated) {
+    if (appState.isAuthenticated) {
         // if post is submitted successfully it gets a response as 'success'
 
         if (postStatus === 'success') {
@@ -66,7 +83,7 @@ const Add = () => {
                 <Container>
                     <h3 className='text-center my-2 pb-3'>Add an Article</h3>
                  
-                    <Form className='formstyle' onSubmit={Submit}>
+                    <Form className='formstyle' onSubmit={addPost}>
                         <Form.Row>
                             <Form.Group as={Col}>
                                 <Form.Label>Title</Form.Label>
@@ -100,7 +117,7 @@ const Add = () => {
 
                         <Form.Row>
                             <Col lg={6}>
-                                <Form.File name="myImage" onChange={fileHandler} label='Upload an Image' required />
+                                <Form.File name="articleImage" onChange={fileHandler} label='Upload an Image' required />
 
                             </Col>
 

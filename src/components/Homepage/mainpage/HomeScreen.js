@@ -7,6 +7,8 @@ import Loader from '../../Loader'
 
 import Article from '../../Article'
 
+import firebase from '../../../trendinitServices/index'
+
 
 
 
@@ -25,10 +27,19 @@ const HomeScreen = (props) => {
     // useEffect is similar to componentDidMount() in class component ,
     //  it fetces the data as soon as component is rendered
     useEffect(() => {
-      
+        getArticles()
 
     }, [pageNumber])
 
+    const getArticles = async()=>{
+        try{
+            const articles = await firebase.articles.read()
+            console.log(articles)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     // this is for the top three latest posts
 
