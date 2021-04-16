@@ -1,0 +1,3 @@
+[submodule "src/trendinitServices"]
+	path = src/trendinitServices
+	url = https://github.com/nitinvarda/trendinitServices.git
