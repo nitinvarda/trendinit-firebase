@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col, Table, Pagination, Badge, Alert } from 'react-bootstrap'
 
@@ -17,7 +17,7 @@ import firebase from '../../../trendinitServices/index'
 
 // this is functional component with react hooks
 const HomeScreen = (props) => {
-    const articles = []
+    const [articles,setArticles] = useState([])
     const pages =1
     const isLoading=false
     const pageNumber = props.match.params.pageNumber || 1
@@ -34,6 +34,7 @@ const HomeScreen = (props) => {
     const getArticles = async()=>{
         try{
             const articles = await firebase.articles.read()
+            setArticles(articles)
             console.log(articles)
         }
         catch(err){
@@ -76,8 +77,8 @@ const HomeScreen = (props) => {
                     {posts.map((item, i) => {
                         return (
                             <Col sm={4} key={i}>
-                                <Link to={"/post/" + item._id} style={{ color: 'white', textDecoration: 'none' }} >
-                                    <div className="first" style={{ backgroundImage: `url(${"/image/" + item.imagename})` }} >
+                                <Link to={"/post/" + item.id} style={{ color: 'white', textDecoration: 'none' }} >
+                                    <div className="first" style={{ backgroundImage: `url(${item.image})` }} >
                                         <div className="text ">
                                             <h4 data-testid='article'> {item.title} </h4>
 

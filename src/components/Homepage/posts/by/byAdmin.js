@@ -8,7 +8,7 @@ import './byAdmin.css';
 import Loader from '../../../Loader'
 import { Breadcrumb, Alert } from 'react-bootstrap'
 
-
+import firebase from '../../../../trendinitServices/index'
 
 
 
@@ -26,8 +26,19 @@ const ByAdmin = (props) => {
 
     // useEffect is similar to componentDidMount() in class component , it fetces the data as soon as component is rendered
     useEffect(() => {
-        
+        getByAuthor(name)
     }, [name])
+
+    const getByAuthor = async()=>{
+        try{
+            const getByAuthorArticles = await firebase.articles.search({keyword:[["by","==",`${name}`]]})
+            setItems(getByAuthorArticles)
+            console.log(getByAuthorArticles)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     if (isLoading) {
         return <Loader />
@@ -54,11 +65,11 @@ const ByAdmin = (props) => {
                             <React.Fragment key={item._id} >
                                 <div className=" article-by" >
                                     <div className="col-lg-4">
-                                        <img src={"/image/" + item.imagename} className="im" alt="post img" />
+                                        <img src={item.image} className="im" alt="post img" />
                                     </div>
 
                                     <div className="byAdmin-article-details col-lg-7">
-                                        <h3  ><Link to={"/post/" + item._id}  >{item.title}</Link></h3>
+                                        <h3  ><Link to={"/post/" + item.id}  >{item.title}</Link></h3>
                                         <ReactMarkdown className="byAdmin-article-desc" source={item.desc} escapeHtml={false} />
                                         <h6>Category:<Link to={"/category/" + item.category}> {item.category}</Link> Date:{item.date}</h6>
 

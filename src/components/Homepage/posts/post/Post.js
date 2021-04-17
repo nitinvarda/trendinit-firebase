@@ -9,6 +9,8 @@ import { Row, Col, Container, Alert } from 'react-bootstrap'
 
 import Loader from '../../../Loader';
 
+import firebase from '../../../../trendinitServices/index'
+
 // this is functional component with react-hooks
 const Post = (props) => {
     const articleLoading=false
@@ -21,9 +23,22 @@ const Post = (props) => {
  
     // useEffect is similar to componentDidMount() in class component , it fetces the data as soon as component is rendered
     useEffect(() => {
+        getPost(id)
        
     }, [id])
-    const { title, category, date, by, desc, imagename } = item;
+    const getPost = async(id)=>{
+        console.log('id')
+        try{
+            const postDetails = await firebase.articles.getById(id)
+            setItem(postDetails)
+            console.log(postDetails)
+        }
+        catch(err){
+            console.log(err)
+
+        }
+    }
+    const { title, category, date, by, desc, image } = item;
     if (title) {
         var split = title.split(" ")
         var breadName = split[1] + " " + split[2]
@@ -50,7 +65,7 @@ const Post = (props) => {
                 </Container>
               
                 <div className=" post-details">
-                    <img src={"/image/" + imagename} className="post-img" alt="post img" />
+                    <img src={image} className="post-img" alt="post img" />
 
                     <div className="post-title" >
                         <br />

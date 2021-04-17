@@ -8,6 +8,9 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb'
 import { Row, Col, Image, Alert } from 'react-bootstrap'
 import Loader from '../../Loader'
 
+
+import firebase from '../../../trendinitServices/index'
+
 // this is functional component with react-hooks
 const Categories = (props) => {
     const isLoading =false
@@ -20,9 +23,21 @@ const Categories = (props) => {
 
     // useEffect is similar to componentDidMount() in class component , it fetces the data as soon as component is rendered
     useEffect(() => {
-        
+        getByCategory(type)
     }, [type])
 
+    const getByCategory = async(type)=>{
+        try{
+            const getCategoryArtilces = await firebase.articles.search({keyword:[['category','==',`${type}`]]})
+            setItems(getCategoryArtilces)
+            console.log(getCategoryArtilces)
+
+        }
+        catch(err){
+            console.log(err)
+
+        }
+    }
     // if the category type doesn't have any data then it response with empty array
     // if there are no items 
     // then this is rendered
@@ -59,13 +74,13 @@ const Categories = (props) => {
                                 <Row className="">
                                     <Col lg={5} className="">
                                         <Link to={"/post/" + item._id} >
-                                            <Image src={"/image/" + item.imagename} alt="post img" fluid />
+                                            <Image src={item.image} alt="post img" fluid />
                                         </Link>
                                     </Col>
                                     <Col lg={7}  >
-                                        <h3><Link to={"/post/" + item._id} >{item.title}</Link></h3>
+                                        <h3><Link to={"/post/" + item.id} >{item.title}</Link></h3>
                                         <br />
-                                        <h5>Article by:<b><i>{item.by}</i></b> --&nbsp; Category:<b><i> {item.category}</i></b> --&nbsp; Date: {item.date.substring(0, 10)}  </h5>
+                                        <h5>Article by:<b><i>{item.by}</i></b> --&nbsp; Category:<b><i> {item.category}</i></b> --&nbsp; Date: {item.date}  </h5>
                                         <br />
 
                                         <h4 className="admin-home-desc"><ReactMarkdown source={item.desc} escapeHtml={false} /></h4>
