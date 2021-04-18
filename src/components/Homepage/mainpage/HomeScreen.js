@@ -33,7 +33,7 @@ const HomeScreen = (props) => {
 
     const getArticles = async()=>{
         try{
-            const articles = await firebase.articles.read()
+            const articles = await firebase.articles.search({order:'descending',orderBy:'createdAt'})
             setArticles(articles)
             console.log(articles)
         }

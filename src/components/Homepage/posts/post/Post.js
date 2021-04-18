@@ -38,7 +38,11 @@ const Post = (props) => {
 
         }
     }
-    const { title, category, date, by, desc, image } = item;
+    const { title, category, createdAt, by, desc, image } = item;
+    // console.log(typeof )
+    const date = new Date(null)
+    console.log((date.setTime(createdAt?.seconds * 1000)).toLocaleString())
+    console.log(createdAt?.toMillis())
     if (title) {
         var split = title.split(" ")
         var breadName = split[1] + " " + split[2]
@@ -90,7 +94,7 @@ const Post = (props) => {
 
                         </Col>
                         <Col xs={12} md={4} >
-                            <h5>Date: {date}</h5>
+                            <h5>Date: {(new Date(createdAt?.toMillis())).toUTCString()}</h5>
 
                         </Col>
 

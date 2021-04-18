@@ -39,7 +39,6 @@ const Add = () => {
         try{
             const addPost = await firebase.articles.create({
                 title,
-                by,
                 desc:marked_desc,
                 category,
                 articleImage

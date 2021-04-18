@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Redirect } from "react-router-dom";
 import './edit.css';
 
@@ -7,11 +7,13 @@ import marked from 'marked';
 import Loader from '../../../Loader'
 import { Alert } from 'react-bootstrap';
 
+import firebase from '../../../../trendinitServices/index'
+import AppContext from '../../../appContext'
 
 
 // this is functional component with react-hooks
 const Edit = ({ history, match }) => {
-    const [isAuthenticated,setIsAuthenticated] = useState(false)
+    const appState = useContext(AppContext)
     const [updateStatus,setUpdateStatus] =useState('')
     const [post, setPost] = useState({
         title: " ",
@@ -39,12 +41,24 @@ const Edit = ({ history, match }) => {
 
     useEffect(() => {
        
-
+        getPost(id)
 
 
 
 
     }, [id])
+    const getPost = async(id)=>{
+        console.log('id')
+        try{
+            const postDetails = await firebase.articles.getById(id)
+            setPost(postDetails)
+            console.log(postDetails)
+        }
+        catch(err){
+            console.log(err)
+
+        }
+    }
 
 
     const marked_desc = marked(desc);
@@ -68,7 +82,7 @@ const Edit = ({ history, match }) => {
         })
     }
     // if updated successully
-    if (isAuthenticated) {
+    if (appState.isAuthenticated) {
 
 
         if (updateStatus === 'success') {
