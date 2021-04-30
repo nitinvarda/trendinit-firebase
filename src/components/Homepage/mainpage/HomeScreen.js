@@ -126,7 +126,7 @@ const HomeScreen = (props) => {
                         {oldposts.map((item, i) => {
                             return (
                                 <Col key={i} sm={12} md={6} lg={4} xl={4}>
-                                    <Link to={"/post/" + item._id} style={{ textDecoration: 'none', color: 'black' }}>
+                                    <Link to={"/post/" + item.id} style={{ textDecoration: 'none', color: 'black' }}>
                                         <Article item={item} />
                                     </Link>
 
