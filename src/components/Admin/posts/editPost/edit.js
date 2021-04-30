@@ -4,8 +4,8 @@ import './edit.css';
 
 import marked from 'marked';
 
-import Loader from '../../../Loader'
-import { Alert } from 'react-bootstrap';
+// import Loader from '../../../Loader'
+// import { Alert } from 'react-bootstrap';
 
 import firebase from '../../../../trendinitServices/index'
 import AppContext from '../../../appContext'
@@ -32,7 +32,7 @@ const Edit = ({ history, match }) => {
 
 
 
-    const { title, by, desc, category, date, myImage } = post;
+    const { title, by, desc } = post;
 
 
 
@@ -42,6 +42,7 @@ const Edit = ({ history, match }) => {
     useEffect(() => {
        
         getPost(id)
+        
 
 
 
@@ -52,6 +53,7 @@ const Edit = ({ history, match }) => {
         try{
             const postDetails = await firebase.articles.getById(id)
             setPost(postDetails)
+            setUpdateStatus('')
             console.log(postDetails)
         }
         catch(err){
@@ -62,6 +64,7 @@ const Edit = ({ history, match }) => {
 
 
     const marked_desc = marked(desc);
+    console.log(marked_desc)
 
     const Submit = (e) => {
         e.preventDefault();

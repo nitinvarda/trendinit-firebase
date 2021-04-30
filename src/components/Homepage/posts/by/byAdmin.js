@@ -6,7 +6,7 @@ import './byAdmin.css';
 
 
 import Loader from '../../../Loader'
-import { Breadcrumb, Alert } from 'react-bootstrap'
+import { Breadcrumb} from 'react-bootstrap'
 
 import firebase from '../../../../trendinitServices/index'
 
@@ -26,19 +26,21 @@ const ByAdmin = (props) => {
 
     // useEffect is similar to componentDidMount() in class component , it fetces the data as soon as component is rendered
     useEffect(() => {
-        getByAuthor(name)
+        setIsLoading(true)
+        const getByAuthor = async()=>{
+            try{
+                const getByAuthorArticles = await firebase.articles.search({keyword:[["by","==",`${name}`]]})
+                setItems(getByAuthorArticles)
+                setIsLoading(false)
+               
+            }
+            catch(err){
+                console.log(err)
+            }
+        }
+        getByAuthor()
     }, [name])
 
-    const getByAuthor = async()=>{
-        try{
-            const getByAuthorArticles = await firebase.articles.search({keyword:[["by","==",`${name}`]]})
-            setItems(getByAuthorArticles)
-            console.log(getByAuthorArticles)
-        }
-        catch(err){
-            console.log(err)
-        }
-    }
 
     if (isLoading) {
         return <Loader />

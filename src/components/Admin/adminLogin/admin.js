@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Button, Row, Col, Container, Card, Alert } from 'react-bootstrap'
+import { Form, Button, Row, Col, Container, Card } from 'react-bootstrap'
 import Loader from '../../Loader'
 import ErrorMessage from '../../ErrorMessage'
 
@@ -34,21 +34,19 @@ const Admin = () => {
         })
     }
     // submit function
-    const submitForm = (e) => {
-        e.preventDefault();
-     
-
-    }
+    
     const { username, password,email } = details;
 
 
     const loginUser = async(e)=>{
         e.preventDefault()
+        setIsLoading(true)
         try{
          
             const loggedInUser = await firebase.admin.login(email,password)
             appState.updateUser(loggedInUser)
             appState.updateIsAuthenticated(true)
+            setIsLoading(false)
         }
         catch(err){
             setError(err.message)
@@ -140,6 +138,8 @@ const Admin = () => {
                                 </Card.Body>
                             </Card>
                 )
+            default:
+                return(<div></div>)
         }
     }
     if (isLoading) {

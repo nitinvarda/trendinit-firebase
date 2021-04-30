@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './categories.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
-import { Row, Col, Image, Alert } from 'react-bootstrap'
+import { Row, Col, Image } from 'react-bootstrap'
 import Loader from '../../Loader'
 
 

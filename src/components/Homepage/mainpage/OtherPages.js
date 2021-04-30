@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Col, Container, Row, Pagination, Alert } from 'react-bootstrap';
+import { Col, Container, Row, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Article from '../../Article'
 

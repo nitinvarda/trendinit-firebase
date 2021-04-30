@@ -6,7 +6,6 @@ import '../editPost/edit.css';
 import marked from 'marked';
 
 import { Form, Col, Container, Button } from 'react-bootstrap'
-import { Alert } from 'react-bootstrap'
 import AppContext from '../../../appContext'
 import firebase from '../../../../trendinitServices/index'
 
@@ -19,7 +18,6 @@ const Add = () => {
     const [postStatus,setPostStatus] =useState('')
     const [post, setPost] = useState({
         title: " ",
-        by: "",
         desc: "",
         category: "",
         imagename: "",
@@ -28,7 +26,7 @@ const Add = () => {
 
 
 
-    const { title, by, desc, category, articleImage } = post;
+    const { title,desc, category, articleImage } = post;
     const marked_desc = marked(desc);
 
 
@@ -43,7 +41,7 @@ const Add = () => {
                 category,
                 articleImage
             })
-            console.log(addPost)
+            setPostStatus(addPost)
         }
         catch(err){
             console.log(err)

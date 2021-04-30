@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 
 import { Link, Redirect } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import '../../../Homepage/posts/post/Post.css';
 
-import { Alert } from 'react-bootstrap'
-import Loader from '../../../Loader'
+import appContext from '../../../appContext'
+
+// import { Alert } from 'react-bootstrap'
+// import Loader from '../../../Loader'
 
 const AdminPost = (props) => {
-    const [isAuthenticated,setIsAuthenticated] = useState(false)
+    const AppState = useContext(appContext)
     const [deleteStatus,setDeleteStatus] =useState(false)
     const [post, setPost] = useState([]);
 
@@ -21,16 +23,17 @@ const AdminPost = (props) => {
 
     // useEffect is similar to componentDidMount() in class component , it fetces the data as soon as component is rendered
     useEffect(() => {
-       
+       setPost([])
     }, [id])
     const { title, date, by, desc, imagename, _id } = post;
 
     // for deleting the post 
     const delPost = (e) => {
+        setDeleteStatus('')
        
     }
     // if deleted successfully
-    if (isAuthenticated) {
+    if (AppState.isAuthenticated) {
 
 
         if (deleteStatus === "deleted") {

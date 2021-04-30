@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Table, Pagination, Badge, Alert } from 'react-bootstrap'
+import { Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
 
 import './Homepage.css'
 import Loader from '../../Loader'

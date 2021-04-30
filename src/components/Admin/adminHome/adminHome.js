@@ -1,8 +1,8 @@
 import React, {useState, useEffect,useContext } from 'react';
 
 
-import Loader from '../../Loader'
-import { Alert, Row, Col, Image, Button } from 'react-bootstrap'
+// import Loader from '../../Loader'
+import {  Row, Col, Image, Button } from 'react-bootstrap'
 
 import {
     Link,
@@ -19,14 +19,15 @@ import firebase from '../../../trendinitServices/index'
 const AdminHome = (props) => {
     const appState = useContext(AppContext)
   
-    const pageNumber = props.match.params.pageNumber || 1
+    // const pageNumber = props.match.params.pageNumber || 1
     const [articles,setArticles] = useState([])
 
     // delete post button function
     const delPost = async(e,id,imageName) => {
         e.preventDefault()
         try{
-            const deleteArticle = await firebase.articles.delete(id,imageName)
+            await firebase.articles.delete(id,imageName)
+            
             getArticles()
         }
         catch(err){

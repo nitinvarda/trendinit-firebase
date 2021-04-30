@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 // import './Post.css';
 import Breadcrumb from 'react-bootstrap/Breadcrumb'
-import { Row, Col, Container, Alert } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 
 
 import Loader from '../../../Loader';
