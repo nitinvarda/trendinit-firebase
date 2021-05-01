@@ -52,7 +52,6 @@ function App() {
 
 
           <Switch>
-            <Route path="/" exact strict component={HomeScreen} />
 
             <Route path="/admin" component={Admin} />
             <Route path="/admin-home" component={AdminHome} />
@@ -64,6 +63,7 @@ function App() {
             <Route path="/page/:pageNumber" component={OtherPages} />
             <Route path="/admin-post/:id" component={Adminpost} />
             <Route path="/contact" exact component={ContacUs} />
+            <Route path="/" exact strict component={HomeScreen} />
           </Switch>
 
 
