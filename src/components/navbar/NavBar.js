@@ -18,9 +18,6 @@ const NavBar = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
 
                     <Nav className="ml-auto">
-                        <LinkContainer to="/admin" >
-                            <Nav.Link >Admin</Nav.Link>
-                        </LinkContainer>
                         <LinkContainer to="/contact" >
                             <Nav.Link >Contact</Nav.Link>
                         </LinkContainer>
